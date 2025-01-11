@@ -7,8 +7,8 @@
   - name: install nodejs and npm
     apt:
       pkg: 
-       - name: nodejs
-       - name: npm
+       - nodejs
+       - npm
 
 
 - name: deploy node project
@@ -18,5 +18,10 @@
     copy:
       src: ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
       dest: /root/nodejs-app-1.0.0.tgz
+  - name: extract node project
+    unarchive:
+      src: /root/nodejs-app-1.0.0.tgz
+      dest: /root/
+      remote_src: yes
 
 
