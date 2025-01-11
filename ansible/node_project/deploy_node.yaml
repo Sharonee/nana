@@ -1,0 +1,22 @@
+---
+- name: install node and npm
+  hosts: webserver
+  tasks: 
+  - name: Update apt repo and cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  - name: install nodejs and npm
+    apt:
+      pkg: 
+       - name: nodejs
+       - name: npm
+
+
+- name: deploy node project
+  hosts: webserver
+  tasks:
+  - name: copy node project to webserver
+    copy:
+      src: ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
+      dest: /root/nodejs-app-1.0.0.tgz
+
+

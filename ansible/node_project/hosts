@@ -1,0 +1,6 @@
+[webserver]
+147.182.173.4
+
+[webserver:vars]
+ansible_user=root
+ansible_ssh_pass=amiriM8080A
