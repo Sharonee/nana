@@ -28,5 +28,7 @@
       path: /root/package
   - name: start node project
     command: node /root/package/app/server.js
+    async: 600
+    poll: 0
 
 
