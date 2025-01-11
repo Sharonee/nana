@@ -10,24 +10,37 @@
        - nodejs
        - npm
 
+- name: Create new Linux user for node app
+  hosts: webserver
+  tasks:
+  - name: create new user
+    user:
+      name: nodeapp
+      state: present
+      group: admin
+      shell: /bin/bash
+      home: /home/nodeapp
+
 
 - name: deploy node project
   hosts: webserver
+  become: yes
+  become_user: nodeapp
   tasks:
   - name: copy node project to webserver
     copy:
       src: /Users/sharon/nana/ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
-      dest: /root/nodejs-app-1.0.0.tgz
+      dest: /home/nodeapp/nodejs-app-1.0.0.tgz
   - name: extract node project
     unarchive:
-      src: /root/nodejs-app-1.0.0.tgz
-      dest: /root/
+      src: /home/nodeapp/nodejs-app-1.0.0.tgz
+      dest: /home/nodeapp/
       remote_src: yes
   - name: install node project dependencies
     npm:
-      path: /root/package
+      path: /home/nodeapp/package
   - name: start node project
-    command: node /root/package/app/server.js
+    command: node /home/nodeapp/package/app/server.js
     async: 600
     poll: 0
   - name: check node project status
