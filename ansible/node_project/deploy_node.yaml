@@ -23,5 +23,10 @@
       src: /root/nodejs-app-1.0.0.tgz
       dest: /root/
       remote_src: yes
+  - name: install node project dependencies
+    npm:
+      path: /root/package
+  - name: start node project
+    command: node /root/package/app/server.js
 
 
