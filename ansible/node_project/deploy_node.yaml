@@ -31,13 +31,9 @@
     async: 600
     poll: 0
   - name: check node project status
-    uri:
-      url: http://147.182.173.4:3000
-      return_content: yes
-    register: response
-  - name: debug node project status
-    debug:
-      var: response.content
+    shell: curl ps aux | grep node
+    register: app_status
+  - debug: msg="{{ app_status.stdout }}"
 
 
 
