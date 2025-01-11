@@ -30,5 +30,14 @@
     command: node /root/package/app/server.js
     async: 600
     poll: 0
+  - name: check node project status
+    uri:
+      url: http://localhost:3000
+      return_content: yes
+    register: response
+  - name: debug node project status
+    debug:
+      var: response.content
+
 
 
