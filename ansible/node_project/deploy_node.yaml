@@ -16,7 +16,7 @@
   tasks:
   - name: copy node project to webserver
     copy:
-      src: ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
+      src: /Users/sharon/nana/ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
       dest: /root/nodejs-app-1.0.0.tgz
   - name: extract node project
     unarchive:
