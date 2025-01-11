@@ -31,9 +31,9 @@
     async: 600
     poll: 0
   - name: check node project status
-    shell: curl ps aux | grep node
+    shell: ps aux | grep node
     register: app_status
-  - debug: msg="{{ app_status.stdout }}"
+  - debug: msg="{{ app_status.stdout_lines }}"
 
 
 
