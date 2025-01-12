@@ -1,0 +1,18 @@
+---
+
+- name: Install Docker
+  hosts: docker-server
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes

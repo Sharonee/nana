@@ -1,0 +1,6 @@
+[docker-server]
+147.182.173.4
+
+[docker-server:vars]
+ansible_user=root
+ansible_ssh_pass=amiriM8080A
