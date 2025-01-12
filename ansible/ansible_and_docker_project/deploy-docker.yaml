@@ -1,7 +1,21 @@
 ---
 
+- name: Update apt
+  hosts: docker_server
+  tasks: 
+  - name: Update apt repo and cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+- name: Install Python3
+  hosts: docker_server
+  tasks:
+    - name: Install Python3
+      apt:
+        name: python3
+        state: present
+
 - name: Install Docker
-  hosts: docker-server
+  hosts: docker_server
   tasks:
     - name: Install Docker
       apt:

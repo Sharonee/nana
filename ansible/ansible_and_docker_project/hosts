@@ -1,6 +1,7 @@
-[docker-server]
+[docker_server]
 147.182.173.4
 
-[docker-server:vars]
+[docker_server:vars]
 ansible_user=root
 ansible_ssh_pass=amiriM8080A
+ansible_python_interpreter=/usr/bin/python3.12
