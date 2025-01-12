@@ -20,6 +20,8 @@
       group: admin
       shell: /bin/bash
       home: /home/nodeapp
+    register: user_created_result
+  - debug: msg={{ user_created_result }}
 
 
 - name: deploy node project
