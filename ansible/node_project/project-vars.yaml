@@ -1,0 +1,10 @@
+version: 1.0.0
+location: /Users/sharon/nana/ansible/node_project/node_app/package
+name: nodejs-app
+destination: /home/nodeapp
+nodeapp_user: nodeapp
+
+
+
+
+

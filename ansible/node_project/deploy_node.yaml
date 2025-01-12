@@ -12,37 +12,48 @@
 
 - name: Create new Linux user for node app
   hosts: webserver
+  vars_files:
+    - project-vars.yaml
   tasks:
-  - name: create new user
-    user:
-      name: nodeapp
-      state: present
-      group: admin
-      shell: /bin/bash
-      home: /home/nodeapp
-    register: user_created_result
-  - debug: msg={{ user_created_result }}
+    - name: create new user
+      user:
+         name: "{{ nodeapp_user }}"
+         state: present
+         group: admin
+         shell: /bin/bash
+         home: /home/nodeapp
+      register: user_created_result
+
+    - name: Display user creation result
+      debug:
+        msg: "{{ user_created_result }}"
+
+    - name: Display created user's UID
+      debug:
+        msg: "The created user's UID is {{ user_created_result.uid }}"
 
 
 - name: deploy node project
   hosts: webserver
+  vars_files:
+    - project-vars.yaml
   become: yes
   become_user: nodeapp
   tasks:
   - name: copy node project to webserver
     copy:
-      src: /Users/sharon/nana/ansible/node_project/node_app/package/nodejs-app-1.0.0.tgz
-      dest: /home/nodeapp/nodejs-app-1.0.0.tgz
+      src: "{{location}}/nodejs-app-{{version}}.tgz"
+      dest: "{{destination}}/nodejs-app-{{version}}.tgz"
   - name: extract node project
     unarchive:
-      src: /home/nodeapp/nodejs-app-1.0.0.tgz
-      dest: /home/nodeapp/
+      src: "{{destination}}/nodejs-app-{{version}}.tgz"
+      dest: "{{destination}}"
       remote_src: yes
   - name: install node project dependencies
     npm:
-      path: /home/nodeapp/package
+      path: "{{destination}}/package"
   - name: start node project
-    command: node /home/nodeapp/package/app/server.js
+    command: node "{{destination}}/package/app/server.js"
     async: 600
     poll: 0
   - name: check node project status
